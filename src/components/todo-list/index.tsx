@@ -2,30 +2,84 @@ import { ChangeEvent, Fragment, useState } from "react"
 import { ToDo } from "./todo"
 
 export interface IToDo {
-    idx: number
-    check: boolean
-    title: string
+    checks: boolean[]
+    titles: string[]
     status: "must" | "should" | "could" | "if"
 }
 
 export function TodoList() {
-    const [searchDate, setSearchDate] = useState("")
+    const [search, setSearch] = useState("")
     const [todos, setTodos] = useState<IToDo[]>([
         {
-            idx: 0,
-            check: false,
-            title: "exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            checks: [true, false, false, false, false, false],
+            titles: ["밑줄을 클릭해서 편집하세요", "", "", "", "", ""],
             status: "must",
         },
-        { idx: 1, check: false, title: "exxxxxxxxxxx", status: "should" },
+        {
+            checks: [true, false, false, false, false, false],
+            titles: ["체크박스를 사용하세요", "", "", "", "", ""],
+            status: "should",
+        },
+        {
+            checks: [false, false, false, false, false, false],
+            titles: ["", "", "", "", "", ""],
+            status: "could",
+        },
+        {
+            checks: [false, false, false, false, false, false],
+            titles: ["", "", "", "", "", ""],
+            status: "if",
+        },
     ])
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchDate(e.currentTarget.value)
+        setSearch(e.currentTarget.value)
     }
+
+    const handleCheckChange = (
+        status: string,
+        index: number,
+        check: boolean
+    ) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.status === status
+                    ? {
+                          ...todo,
+                          checks: todo.checks.map((c, i) =>
+                              i === index ? check : c
+                          ),
+                      }
+                    : todo
+            )
+        )
+    }
+
+    const handleTitleChange = (
+        status: string,
+        index: number,
+        title: string
+    ) => {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.status === status
+                    ? {
+                          ...todo,
+                          titles: todo.titles.map((t, i) =>
+                              i === index ? title : t
+                          ),
+                      }
+                    : todo
+            )
+        )
+    }
+    const filteredTodos = todos.filter((todo) =>
+        todo.titles.some((title) => title.match(search))
+    )
 
     return (
         <>
-            <div className='w-full flex justify-center'>
+            <div className='w-full h-full flex justify-center'>
                 <div
                     className='w-full max-w-5xl m-4 p-4 rounded-lg bg-white
                 shadow-lg shadow-gray-300 flex flex-col gap-4'
@@ -35,60 +89,33 @@ export function TodoList() {
                         <div className='flex items-center bg-blue-300 rounded-md p-1'>
                             <div className='flex '>
                                 <p className='mt-1 ml-2 mr-2 font-serif'>
-                                    DATE :
+                                    Search :
                                 </p>
                                 <input
                                     className='bg-blue-300 rounded-md p-1 font-serif'
                                     type='text'
-                                    value={searchDate}
+                                    value={search}
                                     onChange={handleChange}
                                 />
                             </div>
                         </div>
                     </div>
-                    <div className='flex justify-evenly'>
-                        <div className='flex'>
-                            {todos
-                                .filter((todo) => todo.title.match(searchDate))
-                                .filter((todo) => todo.status.match("must"))
-                                .map((todo) => (
-                                    <Fragment key={todo.idx}>
-                                        <ToDo todo={todo} />
-                                    </Fragment>
-                                ))}
-                        </div>
-                        <div className='flex'>
-                            {todos
-                                .filter((todo) => todo.title.match(searchDate))
-                                .filter((todo) => todo.status.match("should"))
-                                .map((todo) => (
-                                    <Fragment key={todo.idx}>
-                                        <ToDo todo={todo} />
-                                    </Fragment>
-                                ))}
-                        </div>
-                    </div>
-                    <div className='flex justify-evenly'>
-                        <div className='flex'>
-                            {todos
-                                .filter((todo) => todo.title.match(searchDate))
-                                .filter((todo) => todo.status.match("could"))
-                                .map((todo) => (
-                                    <Fragment key={todo.idx}>
-                                        <ToDo todo={todo} />
-                                    </Fragment>
-                                ))}
-                        </div>
-                        <div className='flex'>
-                            {todos
-                                .filter((todo) => todo.title.match(searchDate))
-                                .filter((todo) => todo.status.match("if"))
-                                .map((todo) => (
-                                    <Fragment key={todo.idx}>
-                                        <ToDo todo={todo} />
-                                    </Fragment>
-                                ))}
-                        </div>
+                    <div
+                        className={`flex flex-wrap justify-center gap-12 ${
+                            filteredTodos.length === 1
+                                ? "w-full h-screen items-center"
+                                : ""
+                        }`}
+                    >
+                        {filteredTodos.map((todo) => (
+                            <Fragment key={todo.status}>
+                                <ToDo
+                                    todo={todo}
+                                    onCheckChange={handleCheckChange}
+                                    onTitleChange={handleTitleChange}
+                                />
+                            </Fragment>
+                        ))}
                     </div>
                 </div>
             </div>

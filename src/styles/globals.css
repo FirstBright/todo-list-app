@@ -11,3 +11,18 @@ body,
 #__next {
     height: 100%;
 }
+
+@media (max-width: 752px) {
+    .header {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .searchContainer {
+        width: 100%;
+    }
+
+    .headerText {
+        text-align: center;
+    }
+}

@@ -84,10 +84,12 @@ export function TodoList() {
                     className='w-full max-w-5xl m-4 p-4 rounded-lg bg-white
                 shadow-lg shadow-gray-300 flex flex-col gap-4'
                 >
-                    <div className='flex justify-evenly items-center g-20'>
-                        <p className='font-serif text-6xl'>To Do LIST</p>
+                    <div className='flex justify-evenly items-center g-20 header mb-5'>
+                        <p className='font-serif text-6xl headerText'>
+                            To Do LIST
+                        </p>
                         <div className='flex items-center bg-blue-300 rounded-md p-1'>
-                            <div className='flex '>
+                            <div className='flex searchContainer'>
                                 <p className='mt-1 ml-2 mr-2 font-serif'>
                                     Search :
                                 </p>

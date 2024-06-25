@@ -53,10 +53,12 @@ export function ToDo({ todo, onCheckChange, onTitleChange }: IProps) {
 
     const makeToDoPage = () =>
         todo.titles.map((title, index) => (
-            <div className='flex justify-start items-center mb-4 ' key={index}>
+            <div
+                className='flex justify-start items-center gap-x-3 '
+                key={index}
+            >
                 <input
                     type='checkbox'
-                    className='mr-2'
                     checked={todo.checks[index]}
                     onChange={(e) =>
                         onCheckChange(todo.status, index, e.target.checked)
@@ -106,8 +108,8 @@ export function ToDo({ todo, onCheckChange, onTitleChange }: IProps) {
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
                             autoFocus
-                            onKeyDown={e => {
-                                if (e.key === 'Enter'){
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
                                     handleTitleChange()
                                 }
                             }}

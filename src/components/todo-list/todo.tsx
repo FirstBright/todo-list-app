@@ -85,9 +85,9 @@ export function ToDo({ todo, onCheckChange, onTitleChange }: IProps) {
             <div
                 className={`p-4 rounded-md w-80 ${getBackgroundColor(
                     todo.status
-                )} flex flex-col`}
+                )} flex flex-col gap-y-5`}
             >
-                <p className='font-serif text-lg flex justify-center mb-5'>
+                <p className='font-serif text-lg flex justify-center'>
                     {setTitle(todo.status)}
                 </p>
                 <div className='flex flex-col'>{makeToDoPage()}</div>

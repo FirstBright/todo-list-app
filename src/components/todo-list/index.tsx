@@ -79,17 +79,17 @@ export function TodoList() {
 
     return (
         <>
-            <div className='w-full h-full flex justify-center'>
+            <div className='w-full h-full flex justify-center bgbox'>
                 <div
                     className='w-full max-w-5xl m-4 p-4 rounded-lg bg-white
-                shadow-lg shadow-gray-300 flex flex-col gap-4'
+                shadow-lg shadow-gray-300 flex flex-col gap-4 '
                 >
                     <div className='flex justify-evenly items-center g-20 header mb-5'>
                         <p className='font-serif text-6xl headerText'>
                             To Do LIST
                         </p>
                         <div className='flex items-center bg-blue-300 rounded-md p-1'>
-                            <div className='flex searchContainer'>
+                            <div className='flex'>
                                 <p className='mt-1 ml-2 mr-2 font-serif'>
                                     Search :
                                 </p>
@@ -103,21 +103,21 @@ export function TodoList() {
                         </div>
                     </div>
                     <div
-                        className={`flex flex-wrap justify-center gap-12 ${
-                            filteredTodos.length === 1
-                                ? "w-full h-screen items-center"
-                                : ""
-                        }`}
+                        className={'flex flex-wrap justify-center gap-12 h-1/3 items-center'}
                     >
-                        {filteredTodos.map((todo) => (
-                            <Fragment key={todo.status}>
-                                <ToDo
-                                    todo={todo}
-                                    onCheckChange={handleCheckChange}
-                                    onTitleChange={handleTitleChange}
-                                />
-                            </Fragment>
-                        ))}
+                        {filteredTodos.length === 0 ? (
+                            <p>검색 결과가 없습니다</p>
+                        ) : (
+                            filteredTodos.map((todo) => (
+                                <Fragment key={todo.status}>
+                                    <ToDo
+                                        todo={todo}
+                                        onCheckChange={handleCheckChange}
+                                        onTitleChange={handleTitleChange}
+                                    />
+                                </Fragment>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

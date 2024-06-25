@@ -17,12 +17,10 @@ body,
         flex-direction: column;
         gap: 25px;
     }
-
-    .searchContainer {
-        width: 100%;
-    }
-
     .headerText {
         text-align: center;
+    }
+    .bgbox {
+        height: 1300px;
     }
 }

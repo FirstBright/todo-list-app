@@ -65,6 +65,7 @@ export function ToDo({ todo, onCheckChange, onTitleChange }: IProps) {
                     }
                 />
                 <button
+                    className='hover:text-gray-500 transition-all ease-in duration-150'
                     onClick={() => {
                         setCurrentTitleIndex(index)
                         setNewTitle(title)

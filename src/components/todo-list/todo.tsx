@@ -105,8 +105,14 @@ export function ToDo({ todo, onCheckChange, onTitleChange }: IProps) {
                             type='text'
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
+                            autoFocus
+                            onKeyDown={e => {
+                                if (e.key === 'Enter'){
+                                    handleTitleChange()
+                                }
+                            }}
                         />
-                        <div className='flex justify-end mt-4'>
+                        <form className='flex justify-end mt-4'>
                             <button
                                 className='bg-red-500 text-white p-2 rounded mr-2'
                                 onClick={handleTitleRemove}
@@ -116,10 +122,11 @@ export function ToDo({ todo, onCheckChange, onTitleChange }: IProps) {
                             <button
                                 className='bg-blue-500 text-white p-2 rounded'
                                 onClick={handleTitleChange}
+                                type='submit'
                             >
                                 Save
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             )}
